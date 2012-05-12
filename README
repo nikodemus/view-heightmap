@@ -1,0 +1,6 @@
+A very simple png heightmap viewer. Assumes Quicklisp and SBCL -- but
+should be easy to port to other implementations.
+
+Usage: ./view-heightmap.lisp [--x-profile|--y-profile|--3d] heightmap.png
+
+  If only the heightmap file is provided, the 3D viewer is used.
