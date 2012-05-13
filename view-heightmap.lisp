@@ -33,19 +33,22 @@
   (destructuring-bind (&optional method file) (cdr sb-ext:*posix-argv*)
     (let ((*print-array* nil))
       (setf *command*
-            (cond ((string-equal '--x-profile method)
+            (cond ((string-equal '-x method)
                    `(heightmap-render-profile ,file :axis 0))
-                  ((string-equal '--y-profile method)
+                  ((string-equal '-y method)
                    `(heightmap-render-profile ,file :axis 1))
-                  ((string-equal '--3d method)
+                  ((string-equal '-3d method)
                    `(heightmap-render-3d ,file))
-                  ((not file)
+                  ((and method (not file))
                    `(heightmap-render-3d ,method))
                   (t
                    (format *error-output*
-                           "./view-heightmap.lisp [--x-profile|--y-profile|--3d] ~
-                                                heightmap.png~2%  ~
-                          If only the heightmap file is provided, the 3D viewer is used.~%")
+                           "Usage:~2%  ./view-heightmap.lisp ~
+                            [-x|-y|-3d] ~
+                            heightmap.png~2%    ~
+                            If only the heightmap file is provided, the 3D ~
+                            viewer is used.~2%    ~
+                            https://github.com/nikodemus/view-heightmap~2%")
                    (sb-ext:quit :unix-status 1 :recklessly-p t)))))))
 
 ;;; For reloading
